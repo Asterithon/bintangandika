@@ -13,6 +13,8 @@ const count = ref(0)
         Tailwind CSS is Connected
       </div>
 
+      <a href=""></a>
+
       <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight">
         Build fast interfaces with 
         <span class="bg-gradient-to-r from-emerald-400 to-cyan-500 bg-clip-text text-transparent">
