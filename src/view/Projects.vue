@@ -48,10 +48,10 @@ const filteredProjects = computed(() => {
     <div>
         <!-- Hero Header -->
         <section class="max-w-4xl mx-auto text-center px-4 pt-12 pb-12">
-            <h1 class="text-4xl sm:text-6xl font-headline font-bold text-[#2180AE] tracking-tight mb-4">
+            <h1 class="text-4xl sm:text-6xl font-headline font-bold text-(--color-primary) tracking-tight mb-4">
                 Selected Works
             </h1>
-            <p class="text-base sm:text-lg text-[#475569] font-body leading-relaxed max-w-2xl mx-auto">
+            <p class="text-base sm:text-lg text-(--color-text-muted) font-body leading-relaxed max-w-2xl mx-auto">
                 A curated showcase of my fullstack web applications, mobile booking apps, and image processing tools.
             </p>
 
@@ -61,8 +61,8 @@ const filteredProjects = computed(() => {
                     class="px-5 py-2 rounded-full font-mono-custom text-xs font-semibold tracking-wide transition-all"
                     :class="[
                         selectedCategory === cat
-                            ? 'bg-[#2180AE] text-white shadow-xs'
-                            : 'bg-white text-[#475569] hover:bg-slate-100 border border-slate-200'
+                            ? 'bg-(--color-primary) text-white shadow-xs'
+                            : 'bg-white text-(--color-text-muted) hover:bg-slate-100 border border-slate-200'
                     ]">
                     {{ cat }}
                 </button>
@@ -78,20 +78,20 @@ const filteredProjects = computed(() => {
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
                             <span
-                                class="px-3 py-1 rounded-full bg-[#EBF3F6] text-[#2180AE] text-xs font-mono-custom font-bold">
+                                class="px-3 py-1 rounded-full bg-(--color-bg-cta) text-(--color-primary) text-xs font-mono-custom font-bold">
                                 {{ project.category }}
                             </span>
-                            <span class="text-xs font-mono-custom font-semibold text-[#64748B]">
+                            <span class="text-xs font-mono-custom font-semibold text-(--color-text-subtle)">
                                 {{ project.badge }}
                             </span>
                         </div>
 
                         <!-- Title & Description -->
                         <h3
-                            class="text-2xl font-headline font-bold text-[#0F172A] group-hover:text-[#2180AE] transition-colors">
+                            class="text-2xl font-headline font-bold text-(--color-text-dark) group-hover:text-(--color-primary) transition-colors">
                             {{ project.title }}
                         </h3>
-                        <p class="text-sm text-[#475569] font-body leading-relaxed">
+                        <p class="text-sm text-(--color-text-muted) font-body leading-relaxed">
                             {{ project.description }}
                         </p>
                     </div>
@@ -100,7 +100,7 @@ const filteredProjects = computed(() => {
                     <div class="space-y-4 pt-4 border-t border-slate-100">
                         <div class="flex flex-wrap gap-2">
                             <span v-for="tech in project.tech" :key="tech"
-                                class="px-3 py-1 rounded-full bg-[#F4F6F8] text-[#475569] text-xs font-mono-custom">
+                                class="px-3 py-1 rounded-full bg-[#F4F6F8] text-(--color-text-muted) text-xs font-mono-custom">
                                 {{ tech }}
                             </span>
                         </div>
@@ -111,7 +111,7 @@ const filteredProjects = computed(() => {
                                 <span>Not Deployed Yet</span>
                             </span>
                             <a v-else :href="project.demoUrl" target="_blank"
-                                class="inline-flex items-center gap-1.5 text-xs font-mono-custom font-bold text-[#2180AE] hover:underline">
+                                class="inline-flex items-center gap-1.5 text-xs font-mono-custom font-bold text-(--color-primary) hover:underline">
                                 <span>Live Preview</span>
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -120,7 +120,7 @@ const filteredProjects = computed(() => {
                             </a>
 
                             <a :href="project.githubUrl" target="_blank"
-                                class="inline-flex items-center gap-1.5 text-xs font-mono-custom font-bold text-[#64748B] hover:text-[#0F172A]">
+                                class="inline-flex items-center gap-1.5 text-xs font-mono-custom font-bold text-(--color-text-subtle) hover:text-(--color-text-dark)">
                                 <span>Source Code</span>
                             </a>
                         </div>

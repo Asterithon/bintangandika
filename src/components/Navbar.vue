@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch, onMounted, nextTick } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
@@ -12,63 +12,102 @@ const navItems = [
   { name: 'Contact', path: '/contact' },
 ];
 
+//FUNCTION FOR SMOOTH SLIDING UNDERLINE
+const linkRefs = ref({});
+
+// Posisi & lebar indikator underline
+const indicatorStyle = ref({
+  left: '0px',
+  width: '0px',
+  opacity: 0,
+});
+
+const updateIndicator = () => {
+  const activeEl = linkRefs.value[route.path];
+  if (activeEl && activeEl.$el) {
+    const el = activeEl.$el;
+    indicatorStyle.value = {
+      left: `${el.offsetLeft}px`,
+      width: `${el.offsetWidth}px`,
+      opacity: 1,
+    };
+  } else {
+    indicatorStyle.value.opacity = 0;
+  }
+};
+
+// indicator update
+onMounted(async () => {
+  await nextTick();
+  updateIndicator();
+});
+
+watch(
+  () => route.path,
+  async () => {
+    await nextTick();
+    updateIndicator();
+  }
+);
+//END FUNCTION FOR SMOOTH SLIDING UNDERLINE
+
 const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
 };
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 bg-[#F4F6F8]/90 backdrop-blur-md border-b border-slate-200/60">
+  <header class="sticky top-0 z-50 bg-(--color-bg-main)/90 backdrop-blur-md border-b border-slate-200/60">
     <div class="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between">
-      <!-- Brand Logo -->
+      <!-- Logo -->
       <RouterLink to="/" class="group flex items-center gap-2">
-        <span class="text-xl sm:text-2xl font-headline font-black tracking-tighter text-[#0F172A] group-hover:text-[#2180AE] transition-colors">
+        <span class="text-xl sm:text-2xl font-headline font-black tracking-tighter text-(--color-text-dark) group-hover:text-(--color-primary) transition-colors">
           BINTANG ANDIKA
         </span>
       </RouterLink>
 
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center space-x-8">
+      <!-- Desktop nav link -->
+      <nav ref="navRef" class="hidden md:flex items-center space-x-8 relative py-1">
         <RouterLink
           v-for="item in navItems"
           :key="item.path"
+          :ref="(el) => { if (el) linkRefs[item.path] = el }"
           :to="item.path"
-          class="font-mono-custom text-sm font-medium transition-all relative py-1"
+          class="font-mono-custom text-sm font-medium transition-colors duration-200 relative py-1"
           :class="[
             route.path === item.path
-              ? 'text-[#0F172A] font-semibold'
-              : 'text-[#64748B] hover:text-[#0F172A]'
+              ? 'text-(--color-text-dark) font-semibold'
+              : 'text-(--color-text-subtle) hover:text-(--color-text-dark)'
           ]"
         >
           {{ item.name }}
-          <!-- Active underline bar -->
-          <span
-            v-if="route.path === item.path"
-            class="absolute bottom-0 left-0 w-full h-[2px] bg-[#2180AE] rounded-full"
-          ></span>
         </RouterLink>
+
+        <!-- Sliding Underline Indicator -->
+        <span
+          class="absolute bottom-0 h-[2px] bg-(--color-primary) rounded-full transition-all duration-300 ease-out pointer-events-none"
+          :style="{
+            left: indicatorStyle.left,
+            width: indicatorStyle.width,
+            opacity: indicatorStyle.opacity,
+          }"
+        ></span>
       </nav>
 
-      <!-- Right Action Buttons -->
+      <!-- Right Action -->
       <div class="hidden md:flex items-center space-x-3">
         <RouterLink
           to="/contact"
-          class="px-5 py-2 rounded-full border border-[#2180AE] text-[#2180AE] hover:bg-[#2180AE]/10 font-mono-custom text-xs font-semibold tracking-wide transition-all"
+          class="px-5 py-2 rounded-full border border-(--color-primary) text-(--color-primary) hover:bg-(--color-primary)/10 font-mono-custom text-xs font-semibold tracking-wide transition-all"
         >
           Contact Me
-        </RouterLink>
-        <RouterLink
-          to="/contact"
-          class="px-5 py-2 rounded-full bg-[#2180AE] hover:bg-[#19688F] text-white font-mono-custom text-xs font-semibold tracking-wide transition-all shadow-xs"
-        >
-          Book a call
         </RouterLink>
       </div>
 
       <!-- Mobile Hamburger Button -->
       <button
         @click="toggleMobileMenu"
-        class="md:hidden p-2 text-[#0F172A] hover:text-[#2180AE] focus:outline-none"
+        class="md:hidden p-2 text-(--color-text-dark) hover:text-(--color-primary) focus:outline-none"
         aria-label="Toggle Navigation Menu"
       >
         <svg v-if="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,7 +122,7 @@ const toggleMobileMenu = () => {
     <!-- Mobile Drawer Menu -->
     <div
       v-if="mobileMenuOpen"
-      class="md:hidden bg-[#F4F6F8] border-b border-slate-200 px-6 py-6 space-y-4 animate-fadeIn"
+      class="md:hidden bg-(--color-bg-main) border-b border-slate-200 px-6 py-6 space-y-4 animate-fadeIn"
     >
       <nav class="flex flex-col space-y-3">
         <RouterLink
@@ -94,8 +133,8 @@ const toggleMobileMenu = () => {
           class="font-mono-custom text-base py-2 border-b border-slate-200/50"
           :class="[
             route.path === item.path
-              ? 'text-[#2180AE] font-bold'
-              : 'text-[#475569]'
+              ? 'text-(--color-primary) font-bold'
+              : 'text-(--color-text-muted)'
           ]"
         >
           {{ item.name }}
@@ -105,16 +144,9 @@ const toggleMobileMenu = () => {
         <RouterLink
           to="/contact"
           @click="mobileMenuOpen = false"
-          class="w-full py-2.5 text-center rounded-full border border-[#2180AE] text-[#2180AE] font-mono-custom text-xs font-semibold"
+          class="w-full py-2.5 text-center rounded-full border border-(--color-primary) text-(--color-primary) font-mono-custom text-xs font-semibold"
         >
           Contact Me
-        </RouterLink>
-        <RouterLink
-          to="/contact"
-          @click="mobileMenuOpen = false"
-          class="w-full py-2.5 text-center rounded-full bg-[#2180AE] text-white font-mono-custom text-xs font-semibold"
-        >
-          Book a call
         </RouterLink>
       </div>
     </div>

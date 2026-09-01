@@ -1,15 +1,56 @@
 @import "tailwindcss";
 
+:root {
+  --color-primary: #2180AE;
+  --color-primary-hover: #19688F;
+  --color-secondary: #2BBBD7;
+  --color-cyan-light: #8EE9FC;
+  --color-tertiary: #FFD758;
+  --color-bg-main: #F4F6F8;
+  --color-bg-card: #F8FAFC;
+  --color-bg-footer: #EEF1F4;
+  --color-bg-cta: #EBF3F6;
+  --color-text-dark: #0F172A;
+  --color-text-muted: #475569;
+  --color-text-subtle: #64748B;
+  --color-border-subtle: #E2E8F0;
+}
+
 @layer base {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) var(--color-bg-footer);
+  }
+
   body {
     font-family: 'Inter', sans-serif;
-    background-color: #F4F6F8;
-    color: #0F172A;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-dark);
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Hanken Grotesk', sans-serif;
   }
+}
+
+/* Custom Scrollbar via CSS Pseudo-Elements using :root variables */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-footer);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 9999px;
+  border: 2px solid var(--color-bg-footer);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-primary-hover);
 }
 
 .font-headline {
@@ -22,28 +63,6 @@
 
 .font-mono-custom {
   font-family: 'JetBrains Mono', monospace;
-}
-
-/* Custom theme utilities */
-.bg-primary-teal {
-  background-color: #2180AE;
-}
-.text-primary-teal {
-  color: #2180AE;
-}
-.border-primary-teal {
-  border-color: #2180AE;
-}
-
-.bg-secondary-cyan {
-  background-color: #2BBBD7;
-}
-.text-secondary-cyan {
-  color: #2BBBD7;
-}
-
-.bg-tertiary-yellow {
-  background-color: #FFD758;
 }
 
 /* Soft card shadow */
