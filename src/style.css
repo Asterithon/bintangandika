@@ -1,1 +1,60 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F4F6F8;
+    color: #0F172A;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Hanken Grotesk', sans-serif;
+  }
+}
+
+.font-headline {
+  font-family: 'Hanken Grotesk', sans-serif;
+}
+
+.font-body {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-mono-custom {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom theme utilities */
+.bg-primary-teal {
+  background-color: #2180AE;
+}
+.text-primary-teal {
+  color: #2180AE;
+}
+.border-primary-teal {
+  border-color: #2180AE;
+}
+
+.bg-secondary-cyan {
+  background-color: #2BBBD7;
+}
+.text-secondary-cyan {
+  color: #2BBBD7;
+}
+
+.bg-tertiary-yellow {
+  background-color: #FFD758;
+}
+
+/* Soft card shadow */
+.card-shadow {
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+}
+
+.card-shadow-hover {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-shadow-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+}
