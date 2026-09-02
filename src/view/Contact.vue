@@ -71,11 +71,17 @@ const handleSubmit = async () => {
     }
 }
 
+// Oper HANYA nama filenya saja, misalnya 'github' atau 'whatsapp'
+const getIconUrl = (name) => {
+    if (!name) return ''
+    return new URL(`../assets/icons/${name}.svg`, import.meta.url).href
+}
+
 const socialLinks = [
-    { id: 'wa', name: 'Whatsapp', short: 'WA', url: 'https://wa.me/6282144581125' },
-    { id: 'in', name: 'LinkedIn', short: 'IN', url: 'https://www.linkedin.com/in/bintangandikaputra' },
-    { id: 'gh', name: 'GitHub', short: 'GH', url: 'https://github.com/Asterithon' },
-    { id: 'ig', name: 'Instagram', short: 'IG', url: 'https://instagram.com/asterihon.sta' },
+    { id: 'wa', name: 'Whatsapp', short: 'WA', url: 'https://wa.me/6282144581125', logo: 'whatsapp' },
+    { id: 'in', name: 'LinkedIn', short: 'IN', url: 'https://www.linkedin.com/in/bintangandikaputra', logo: 'suitcase' },
+    { id: 'gh', name: 'GitHub', short: 'GH', url: 'https://github.com/Asterithon', logo: 'github' },
+    { id: 'ig', name: 'Instagram', short: 'IG', url: 'https://instagram.com/asterihon.sta', logo: 'instagram' },
 ]
 </script>
 
@@ -119,7 +125,7 @@ const socialLinks = [
                             <div class="space-y-2">
                                 <label
                                     class="block font-mono-custom text-xs font-bold uppercase tracking-wider text-(--color-text-muted)">
-                                    NAME<span class="text-red-500">*</span>
+                                    NAME <span class="text-red-500">*</span>
                                 </label>
                                 <input v-model="form.name" type="text" required placeholder="Your Name"
                                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-(--color-primary) focus:ring-2 focus:ring-[#2180AE]/20 outline-none transition-all text-sm font-body bg-slate-50/50" />
@@ -128,7 +134,7 @@ const socialLinks = [
                             <div class="space-y-2">
                                 <label
                                     class="block font-mono-custom text-xs font-bold uppercase tracking-wider text-(--color-text-muted)">
-                                    EMAIL<span class="text-red-500">*</span>
+                                    EMAIL <span class="text-red-500">*</span>
                                 </label>
                                 <input v-model="form.email" type="email" required placeholder="your@email.com"
                                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-(--color-primary) focus:ring-2 focus:ring-[#2180AE]/20 outline-none transition-all text-sm font-body bg-slate-50/50" />
@@ -138,7 +144,7 @@ const socialLinks = [
                         <div class="space-y-2">
                             <label
                                 class="block font-mono-custom text-xs font-bold uppercase tracking-wider text-(--color-text-muted)">
-                                MESSAGE<span class="text-red-500">*</span>
+                                MESSAGE <span class="text-red-500">*</span>
                             </label>
                             <textarea v-model="form.message" required rows="5"
                                 placeholder="Tell me about your project..."
@@ -218,12 +224,20 @@ const socialLinks = [
                                 :key="item.id"
                                 :href="item.url"
                                 :title="item.name"
-                                class="group w-12 hover:w-25 h-12 rounded-full bg-[#F4F6F8] hover:bg-(--color-primary) text-(--color-text-muted) hover:text-white flex items-center justify-center font-mono-custom text-xs font-bold transition-all duration-300 shadow-xs whitespace-nowrap overflow-hidden px-3"
+                                class="group w-12 lg:hover:w-25 h-12 rounded-full bg-[#F4F6F8] hover:bg-(--color-primary) text-(--color-text-muted) hover:text-white flex items-center justify-center font-mono-custom text-xs font-bold transition-all duration-300 shadow-xs whitespace-nowrap overflow-hidden px-3"
                             >
-                                <span class="group-hover:hidden">{{ item.short }}</span>
-                                <span class="hidden group-hover:inline">{{ item.name }}</span>
+                                <!-- Tampilan Mobile & Tablet: Hanya Logo SVG -->
+                                <img 
+                                    :src="getIconUrl(item.logo)" 
+                                    :alt="item.name" 
+                                    class="block lg:hidden w-5 h-5 object-contain"
+                                />
+
+                                <!-- Tampilan Desktop: Teks Short & Animasi Melebar saat Hover -->
+                                <span class="hidden lg:inline group-hover:hidden">{{ item.short }}</span>
+                                <span class="hidden lg:group-hover:inline">{{ item.name }}</span>
                             </a>
-                        </div>
+                        </div>                    
                     </div>
 
                 </div>

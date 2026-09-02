@@ -148,10 +148,10 @@ const toggleMobileMenu = () => {
           >
             <span>{{ item.name }}</span>
             <span
-              class="text-xs transition-transform duration-200"
+              class="text-xs transition-transform duration-200 flex items-center"
               :class="route.path === item.path ? 'text-(--color-primary) translate-x-0' : 'opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0'"
             >
-              ➔
+              <span class="animate-pulse relative inline-flex rounded-full h-3 w-3 bg-(--color-primary) "></span>
             </span>
           </RouterLink>
         </nav>

@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-(--color-bg-footer) border-t border-slate-200/80 mt-20 text-(--color-text-dark) py-14">
+  <footer class="bg-(--color-bg-footer) border-t border-slate-200/80 mt-5 text-(--color-text-dark) py-14">
     <div class="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
       <!-- Brand & Copyright -->
       <div class="md:col-span-2 space-y-4">

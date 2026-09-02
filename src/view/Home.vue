@@ -4,65 +4,75 @@ import AvailableBadge from '../components/AvailableBadge.vue';
 
 <template>
     <div class="max-w-7xl mx-auto px-4 sm:px-8 pt-8 pb-16">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[75vh]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[75vh] relative">
 
             <!-- Left Column: Hero Text & Main CTA -->
-            <div class="lg:col-span-6 space-y-6">
+            <div class="lg:col-span-6 space-y-6 z-40">
+                
+                
                 <AvailableBadge />
-
+                
                 <h1
-                    class="text-5xl sm:text-7xl font-headline font-extrabold text-(--color-text-dark) tracking-tight leading-[1.05]">
-                    Hi, I'm a <br class="hidden sm:inline" />
-                    web designer <br class="hidden sm:inline" />
-                    &amp; mobile dev                
+                class="text-5xl sm:text-7xl font-headline font-extrabold text-(--color-text-dark) tracking-tight leading-[1.05]">
+                Hi, I'm a <br class="hidden sm:inline" />
+                web designer <br class="hidden sm:inline" />
+                &amp; mobile dev                
                 </h1>
-
+                
                 <p class="text-lg sm:text-l text-(--color-text-muted) font-body leading-relaxed max-w-lg">
                     2 years of experience in web design, data entry, and mobile apps development using React, Vue, React
                     Native, and Laravel.
                 </p>
-
+                
                 <div class="pt-4">
                     <RouterLink to="/contact"
-                        class="inline-block px-8 py-4 rounded-full bg-(--color-text-dark) hover:bg-slate-800 text-white font-body font-medium transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base">
-                        Contact Me
-                    </RouterLink>
-                </div>
+                    class="inline-block px-8 py-4 rounded-full bg-(--color-text-dark) hover:bg-slate-800 text-white font-body font-medium transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm sm:text-base">
+                    Contact Me
+                </RouterLink>
             </div>
-
-            <!-- Right Column: Card Widgets Grid -->
-            <div class="lg:col-span-6 space-y-5">
-
+        </div>
+        
+        <!-- Right Column: Card Widgets Grid -->
+        <div class="lg:col-span-6 space-y-5 relative overflow-hidden">
+            
                 <!-- Top Row Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <!-- Card 1: Profile & Rate Info -->
                     <div
-                        class="bg-(--color-bg-card) border border-slate-200/80 p-6 rounded-3xl card-shadow flex flex-col justify-between space-y-6">
-                        <div>
-                            <h3 class="text-xl font-headline font-bold text-(--color-text-dark) mb-1">
-                                Gusti Agung Putu Bintang Andika Putra
-                            </h3>
-                            <p class="text-xs font-mono-custom text-(--color-text-subtle)">
-                                Bali, Indonesia
-                            </p>
-                        </div>
-
-                        <div class="space-y-3">
-                            <div
-                                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200/70 text-(--color-text-dark) text-[11px] font-mono-custom font-semibold">
-                                <span>REACT & VUE DEV</span>
+                    class="bg-(--color-bg-card) border border-slate-200/80 p-6 rounded-3xl card-shadow flex flex-col justify-between space-y-6">
+                    <div>
+                        <h3 class="text-xl font-headline font-bold text-(--color-text-dark) mb-1">
+                            Gusti Agung Putu Bintang Andika Putra
+                        </h3>
+                        <p class="text-xs font-mono-custom text-(--color-text-subtle)">
+                            Bali, Indonesia
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div
+                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200/70 text-(--color-text-dark) text-[11px] font-mono-custom font-semibold">
+                        <span>REACT & VUE DEV</span>
                             </div>
                             <p class="text-sm font-mono-custom font-bold text-(--color-primary)">
                                 OPEN FOR FREELANCE
                             </p>
                         </div>
                     </div>
-
+                    
                     <!-- featured project -->
+                    <!-- <div class="h-50">
+                        <img 
+                            src="../assets/meFR.png" 
+                            alt="Dekorasi" 
+                            class="hidden lg:block w-100 object-contain pointer-events-none mask-b-from-60% mask-b-to-100%"
+                        />
+                    </div> -->
+                    
                     <div
-                        class="bg-(--color-bg-card) border border-slate-200/80 p-4 rounded-3xl card-shadow overflow-hidden group">
+                        class="bg-(--color-bg-card) border border-slate-200/80 p-4 rounded-3xl card-shadow overflow-hidden group ">
                         <div
-                            class="relative w-full h-44 bg-gradient-to-br from-[#2180AE]/20 to-[#2BBBD7]/30 rounded-2xl p-4 flex flex-col justify-between overflow-hidden">
+                        class="relative w-full h-44 bg-gradient-to-br from-[#2180AE]/20 to-[#2BBBD7]/30 rounded-2xl p-4 flex flex-col justify-between">
                             <div class="bg-white/90 backdrop-blur-sm p-3 rounded-xl shadow-xs max-w-[170px]">
                                 <p class="text-[10px] font-mono-custom text-(--color-text-subtle) uppercase">Featured
                                     Project</p>
@@ -82,7 +92,7 @@ import AvailableBadge from '../components/AvailableBadge.vue';
 
                 <!-- tech stack card -->
                 <div
-                    class="bg-(--color-cyan-light) p-6 sm:p-7 rounded-3xl text-(--color-text-dark) shadow-xs space-y-4">
+                    class="bg-(--color-cyan-light) p-6 sm:p-7 rounded-3xl text-(--color-text-dark) shadow-xs space-y-4 z-20" >
                     <p class="text-xs font-body font-medium text-slate-800">
                         Core Tech &amp; Tools I work with
                     </p>

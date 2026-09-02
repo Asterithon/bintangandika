@@ -13,8 +13,8 @@ const projects = [
         description: 'Advanced image processing web application built with OpenCV, Python + Flask backend, and React + Tailwind CSS frontend for real-time image transformation, filtering, and computer vision analysis.',
         tech: ['React', 'Tailwind CSS', 'Python', 'Flask', 'OpenCV'],
         badge: 'Fullstack Web App',
-        demoUrl: '#',
-        githubUrl: '#'
+        demoUrl: '',
+        githubUrl: 'https://github.com/asterithon/seetra'
     },
     {
         id: 2,
@@ -23,8 +23,8 @@ const projects = [
         description: 'Cross-platform mobile application for venue and event seat reservation, built with React Native and Android Studio for smooth UI interactions, real-time seat selection, and user booking flows.',
         tech: ['React Native', 'Android Studio', 'JavaScript', 'Mobile UI'],
         badge: 'Mobile Application',
-        demoUrl: '#',
-        githubUrl: '#'
+        demoUrl: '',
+        githubUrl: 'https://github.com/asterithon/seatbookingapp'
     },
     {
         id: 3,
@@ -33,8 +33,8 @@ const projects = [
         description: 'Fullstack futsal court reservation web platform built with Laravel and Tailwind CSS, featuring secure user authentication, interactive field schedule management, and instant booking confirmations.',
         tech: ['Laravel', 'Tailwind CSS', 'MySQL', 'PHP', 'Authentication'],
         badge: 'Fullstack Web App',
-        demoUrl: '#',
-        githubUrl: '#'
+        demoUrl: '',
+        githubUrl: 'https://github.com/asterithon/booking-futsal'
     }
 ];
 

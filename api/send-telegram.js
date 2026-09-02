@@ -8,12 +8,6 @@ export default async function handler(req, res) {
         return res.status(405).json({ message: "Method Not Allowed" });
     }
 
-    // 1. Dapatkan IP pengguna untuk proteksi server-side rate limit
-    const clientIp =
-        req.headers["x-forwarded-for"]?.split(",")[0].trim() ||
-        req.socket?.remoteAddress ||
-        "unknown";
-
     const lastRequestTime = ipTracker.get(clientIp);
     const now = Date.now();
 
@@ -40,7 +34,7 @@ export default async function handler(req, res) {
             .json({ message: "Konfigurasi bot server belum lengkap." });
     }
 
-    const telegramText = `<b>Pesan Baru dari Web!</b>\n\n<b>Nama:</b> ${nama}\n<b>Pesan:</b> ${pesan}\n\n<i>IP: ${clientIp}</i>`;
+    const telegramText = `<b>Pesan Baru dari Web!</b>\n\n<b>Nama:</b> ${nama}\n<b>Pesan:</b> ${pesan}`;
 
     try {
         const response = await fetch(
@@ -63,9 +57,6 @@ export default async function handler(req, res) {
                 .status(502)
                 .json({ message: "Gagal meneruskan pesan ke Telegram." });
         }
-
-        // Catat waktu pengiriman terakhir untuk IP ini
-        ipTracker.set(clientIp, now);
 
         return res.status(200).json({ message: "Pesan berhasil dikirim!" });
     } catch (error) {

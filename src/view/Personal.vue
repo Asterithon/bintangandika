@@ -79,12 +79,12 @@ const skillCategories = [
                     <div v-for="(exp, idx) in experiences" :key="idx"
                         class="bg-white border border-slate-200/80 p-8 rounded-3xl card-shadow card-shadow-hover flex flex-col md:flex-row justify-between md:items-center gap-6">
                         <div class="space-y-2 max-w-2xl">
-                            <div class="flex items-center gap-3">
+                            <div class="md:flex items-center gap-3">
                                 <h3 class="text-xl font-headline font-bold text-(--color-text-dark)">
                                     {{ exp.role }}
                                 </h3>
                                 <span class="text-sm font-headline font-semibold text-(--color-primary)">
-                                    @ {{ exp.company }}
+                                    @{{ exp.company }}
                                 </span>
                             </div>
                             <p class="text-sm text-(--color-text-muted) font-body leading-relaxed">
