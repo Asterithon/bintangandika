@@ -1,21 +1,7 @@
-// Rate limit memori sederhana berbasis IP untuk serverless instance
-const ipTracker = new Map();
-const COOLDOWN_MS = 60 * 1000; // Cooldown 60 detik per IP
-
 export default async function handler(req, res) {
     // Hanya izinkan method POST
     if (req.method !== "POST") {
         return res.status(405).json({ message: "Method Not Allowed" });
-    }
-
-    const lastRequestTime = ipTracker.get(clientIp);
-    const now = Date.now();
-
-    if (lastRequestTime && now - lastRequestTime < COOLDOWN_MS) {
-        const sisaWaktu = Math.ceil((COOLDOWN_MS - (now - lastRequestTime)) / 1000);
-        return res.status(429).json({
-            message: `Harap tunggu ${sisaWaktu} detik sebelum mengirim pesan kembali.`,
-        });
     }
 
     const { nama, pesan } = req.body || {};
