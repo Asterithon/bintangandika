@@ -28,7 +28,7 @@ import AvailableBadge from './AvailableBadge.vue';
             Book a Discovery Call
           </RouterLink>
           <a
-            href="#resume"
+            href="https://drive.google.com/file/d/1KL2Uw4cg7NcP35YMHoiyN0GaCnyilU7X/view?usp=drivesdk"
             class="w-full sm:w-auto px-8 py-3.5 rounded-full border border-(--color-primary) text-(--color-primary) hover:bg-(--color-primary)/5 font-body font-medium transition-all text-center text-sm"
           >
             View Resume

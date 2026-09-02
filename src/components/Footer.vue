@@ -7,27 +7,28 @@
           BINTANG ANDIKA
         </h3>
         <p class="text-sm text-(--color-text-subtle) font-body max-w-sm leading-relaxed">
-          © {{ currentYear }} BINTANG ANDIKA
+          © {{ currentYear }} BINTANG ANDIKA. Crafted with technical precision, modern design, and creative flair.
         </p>
       </div>
 
-      <!-- Navigation Column -->
+      <!-- Navigation Column (Dynamic Active Link Highlight) -->
       <div class="md:col-start-4">
-        <h4 class="font-mono-custom text-xs font-bold uppercase tracking-wider text-(--color-text-muted) mb-4">
+        <h4 class="font-mono-custom text-s font-bold uppercase tracking-wider text-(--color-text-muted) mb-4">
           Navigation
         </h4>
         <ul class="space-y-2.5 font-body text-sm">
-          <li>
-            <RouterLink to="/" class="text-(--color-primary) hover:underline font-medium">Home</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/projects" class="text-(--color-text-subtle) hover:text-(--color-text-dark) transition-colors">Projects</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/personal" class="text-(--color-text-subtle) hover:text-(--color-text-dark) transition-colors">About</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/contact" class="text-(--color-text-subtle) hover:text-(--color-text-dark) transition-colors">Contact</RouterLink>
+          <li v-for="item in navItems" :key="item.path">
+            <RouterLink
+              :to="item.path"
+              class="transition-all duration-200 inline-flex items-center gap-2 font-medium hover:translate-x-0.5"
+              :class="[
+                route.path === item.path
+                  ? 'text-(--color-primary) font-semibold '
+                  : 'text-(--color-text-subtle) hover:text-(--color-text-dark)'
+              ]"
+            >
+              <span>{{ item.name }}</span>
+            </RouterLink>
           </li>
         </ul>
       </div>
@@ -36,5 +37,15 @@
 </template>
 
 <script setup>
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 const currentYear = new Date().getFullYear();
+
+const navItems = [
+  { name: 'Home', path: '/' },
+  { name: 'Projects', path: '/projects' },
+  { name: 'About', path: '/personal' },
+  { name: 'Contact', path: '/contact' },
+];
 </script>

@@ -1,34 +1,82 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, reactive } from 'vue';
 import ProjectCTA from '../components/ProjectCTA.vue';
 
 const isHovering = ref(false)
 
-const form = ref({
+const form = reactive({
     name: '',
     email: '',
-    subject: '',
-    message: '',
-});
+    message: ''
+})
+
+const isSubmitting = ref(false)
+const isSubmitted = ref(false)
+const errorMessage = ref('')
+const cooldownSeconds = ref(0)
+let timerInterval = null
+
+// Fungsi timer countdown anti-spam
+const startCooldown = (seconds = 60) => {
+    cooldownSeconds.value = seconds
+    clearInterval(timerInterval)
+
+    timerInterval = setInterval(() => {
+        cooldownSeconds.value--
+        if (cooldownSeconds.value <= 0) {
+            clearInterval(timerInterval)
+        }
+    }, 1000)
+}
+
+const handleSubmit = async () => {
+    // Guard / Debounce: Cegah klik ganda saat proses atau masa cooldown
+    if (isSubmitting.value || cooldownSeconds.value > 0) return
+
+    isSubmitting.value = true
+    isSubmitted.value = false
+    errorMessage.value = ''
+
+    try {
+        const res = await fetch('/api/send-telegram', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nama: form.name,
+                email: form.email,
+                pesan: form.message
+            })
+        })
+
+        const data = await res.json()
+
+        if (res.ok) {
+            isSubmitted.value = true
+            form.name = ''
+            form.email = ''
+            form.message = ''
+            startCooldown(60) // Cooldown 60 detik setelah sukses
+        } else {
+            errorMessage.value = data.message || 'Failed to send message. Please try again later.'
+            if (res.status === 429) {
+                startCooldown(30) // Cooldown jika terdeteksi rate limit server
+            }
+        }
+    } catch (err) {
+        errorMessage.value = 'Connection error. Please try again later.'
+    } finally {
+        isSubmitting.value = false
+    }
+}
 
 const socialLinks = [
-    { id: 'wa', name: 'Whatsapp', short: 'WA', url: '#whatsapp' },
-    { id: 'in', name: 'LinkedIn', short: 'IN', url: '#linkedin' },
-    { id: 'gh', name: 'GitHub', short: 'GH', url: '#github' },
-    { id: 'ig', name: 'Instagram', short: 'IG', url: '#instagram' },
+    { id: 'wa', name: 'Whatsapp', short: 'WA', url: 'https://wa.me/6282144581125' },
+    { id: 'in', name: 'LinkedIn', short: 'IN', url: 'https://www.linkedin.com/in/bintangandikaputra' },
+    { id: 'gh', name: 'GitHub', short: 'GH', url: 'https://github.com/Asterithon' },
+    { id: 'ig', name: 'Instagram', short: 'IG', url: 'https://instagram.com/asterihon.sta' },
 ]
-
-const isSubmitted = ref(false);
-
-const handleSubmit = () => {
-    if (form.value.name && form.value.email && form.value.message) {
-        isSubmitted.value = true;
-        setTimeout(() => {
-            isSubmitted.value = false;
-            form.value = { name: '', email: '', subject: '', message: '' };
-        }, 4000);
-    }
-};
 </script>
 
 <template>
@@ -48,15 +96,22 @@ const handleSubmit = () => {
         <section class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-                <!-- Left: messege form -->
+                <!-- Left: message form -->
                 <div class="lg:col-span-7 bg-white border border-slate-200/80 p-8 sm:p-10 rounded-3xl card-shadow">
                     <h2 class="text-2xl font-headline font-bold text-(--color-primary) mb-8">
                         Send a Message
                     </h2>
 
+                    <!-- Success Alert -->
                     <div v-if="isSubmitted"
                         class="p-4 mb-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-body">
                         Thank you! Your message has been sent successfully. I will get back to you shortly.
+                    </div>
+
+                    <!-- Error Alert -->
+                    <div v-if="errorMessage"
+                        class="p-4 mb-6 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-sm font-body">
+                        {{ errorMessage }}
                     </div>
 
                     <form @submit.prevent="handleSubmit" class="space-y-6">
@@ -64,7 +119,7 @@ const handleSubmit = () => {
                             <div class="space-y-2">
                                 <label
                                     class="block font-mono-custom text-xs font-bold uppercase tracking-wider text-(--color-text-muted)">
-                                    NAME
+                                    NAME<span class="text-red-500">*</span>
                                 </label>
                                 <input v-model="form.name" type="text" required placeholder="Your Name"
                                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-(--color-primary) focus:ring-2 focus:ring-[#2180AE]/20 outline-none transition-all text-sm font-body bg-slate-50/50" />
@@ -73,7 +128,7 @@ const handleSubmit = () => {
                             <div class="space-y-2">
                                 <label
                                     class="block font-mono-custom text-xs font-bold uppercase tracking-wider text-(--color-text-muted)">
-                                    EMAIL
+                                    EMAIL<span class="text-red-500">*</span>
                                 </label>
                                 <input v-model="form.email" type="email" required placeholder="your@email.com"
                                     class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-(--color-primary) focus:ring-2 focus:ring-[#2180AE]/20 outline-none transition-all text-sm font-body bg-slate-50/50" />
@@ -83,16 +138,7 @@ const handleSubmit = () => {
                         <div class="space-y-2">
                             <label
                                 class="block font-mono-custom text-xs font-bold uppercase tracking-wider text-(--color-text-muted)">
-                                SUBJECT
-                            </label>
-                            <input v-model="form.subject" type="text" placeholder="Project Inquiry / Opportunity"
-                                class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-(--color-primary) focus:ring-2 focus:ring-[#2180AE]/20 outline-none transition-all text-sm font-body bg-slate-50/50" />
-                        </div>
-
-                        <div class="space-y-2">
-                            <label
-                                class="block font-mono-custom text-xs font-bold uppercase tracking-wider text-(--color-text-muted)">
-                                MESSAGE
+                                MESSAGE<span class="text-red-500">*</span>
                             </label>
                             <textarea v-model="form.message" required rows="5"
                                 placeholder="Tell me about your project..."
@@ -101,8 +147,11 @@ const handleSubmit = () => {
 
                         <div>
                             <button type="submit"
-                                class="px-7 py-3.5 rounded-full bg-(--color-primary) hover:bg-(--color-primary-hover) text-white font-mono-custom text-xs font-semibold tracking-wide transition-all shadow-sm hover:shadow flex items-center gap-2">
-                                <span>Send Message</span>
+                                :disabled="isSubmitting || cooldownSeconds > 0"
+                                class="px-7 py-3.5 rounded-full bg-(--color-primary) hover:bg-(--color-primary-hover) text-white font-mono-custom text-xs font-semibold tracking-wide transition-all shadow-sm hover:shadow flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                                <span v-if="isSubmitting">Sending...</span>
+                                <span v-else-if="cooldownSeconds > 0">Wait ({{ cooldownSeconds }}s)</span>
+                                <span v-else>Send Message</span>
                                 <span>▷</span>
                             </button>
                         </div>
@@ -119,7 +168,7 @@ const handleSubmit = () => {
                         </h3>
 
                         <div class="space-y-4 font-body text-sm text-[#334155]">
-                            <div class="flex items-center gap-3">
+                            <a class="flex items-center gap-3 hover:cursor-pointer" href="mailto:binandika06@gmail.com">
                                 <div
                                     class="w-8 h-8 rounded-full bg-[#2180AE]/10 text-(--color-primary) flex items-center justify-center">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,9 +177,9 @@ const handleSubmit = () => {
                                     </svg>
                                 </div>
                                 <span>binandika06@gmail.com</span>
-                            </div>
+                            </a>
 
-                            <div class="flex items-center gap-3">
+                            <a class="flex items-center gap-3 hover:cursor-pointer" href="tel:+6282144581125">
                                 <div
                                     class="w-8 h-8 rounded-full bg-[#2180AE]/10 text-(--color-primary) flex items-center justify-center">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,11 +188,11 @@ const handleSubmit = () => {
                                     </svg>
                                 </div>
                                 <span>082-144-581-125</span>
-                            </div>
+                            </a>
 
-                            <div class="flex items-center gap-3">
+                            <a class="flex items-center gap-3 hover:cursor-pointer" href="https://maps.app.goo.gl/6kxcDU1SkgUXZoFM7" target="_blank">
                                 <div
-                                    class="w-8 h-8 rounded-full bg-[#2180AE]/10 text-(--color-primary) flex items-center justify-center">
+                                    class="w-8 h-8 rounded-full bg-(--color-primary)/10 text-(--color-primary) flex items-center justify-center">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -152,7 +201,7 @@ const handleSubmit = () => {
                                     </svg>
                                 </div>
                                 <span>Perum. Garuda Kencana V, Dalung, Badung, Bali</span>
-                            </div>
+                            </a>
                         </div>
                     </div>
 
@@ -179,11 +228,10 @@ const handleSubmit = () => {
 
                 </div>
 
-
             </div>
         </section>
 
-        <!-- Bottom Reusable CTA Banner -->
+        <!-- CTA -->
         <ProjectCTA />
     </div>
 </template>
