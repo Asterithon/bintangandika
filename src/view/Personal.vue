@@ -52,21 +52,43 @@ const skillCategories = [
         </section>
 
         <!-- Content Grid -->
-        <section class="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 space-y-12">
 
             <!-- Bio Summary Card -->
-            <div class="bg-white border border-slate-200/80 p-8 sm:p-10 rounded-3xl card-shadow">
-                <h2 class="text-2xl font-headline font-bold text-(--color-primary) mb-4">
-                    About Me
-                </h2>
-                <p class="text-[#334155] font-body leading-relaxed text-base sm:text-lg mb-6">
-                    Hi! I'm Gusti Agung Putu Bintang Andika Putra (Bintang Andika), a Web Designer and Mobile Apps
-                    Developer based in Bali, Indonesia. I bring over 2 years of practical experience in web design,
-                    custom WordPress development, data entry management, and cross-platform mobile app development.
-                </p>
-                <p class="text-(--color-text-muted) font-body leading-relaxed text-sm sm:text-base">
-                    "Doubt is the beginning of defeat."
-                </p>
+            <!-- Wrapper Grid: pastikan tidak memakai items-center agar kolom meregang penuh -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+                <!-- KOLOM KIRI (Teks) -->
+                <div class="lg:col-span-8 bg-white border border-slate-200/80 p-8 sm:p-10 rounded-3xl card-shadow">
+                    <!-- Konten About Me -->
+                    <h2 class="text-2xl font-headline font-bold text-(--color-primary) mb-4">
+                        About Me
+                    </h2>
+                    <p class="text-[#334155] font-body leading-relaxed text-base sm:text-lg mb-6">
+                        Hi! I'm Gusti Agung Putu Bintang Andika Putra (Bintang Andika), a Web Designer and Mobile Apps
+                        Developer based in Bali, Indonesia. I bring over 2 years of practical experience in web design,
+                        custom WordPress development, data entry management, and cross-platform mobile app development.
+                    </p>
+                    <p class="text-(--color-text-muted) font-body leading-relaxed text-sm sm:text-base">
+                        "Doubt is the beginning of defeat."
+                    </p>
+                </div>
+
+                <!-- KOLOM KANAN: Beri h-full agar tingginya mengikuti kolom kiri -->
+                <div class="lg:col-span-4 h-full flex justify-center">
+                    <div class="relative group w-full max-w-xs sm:max-w-sm">
+
+                        <!-- Glow Halus di Belakang Frame -->
+                        <div
+                            class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-(--color-primary)/20 to-(--color-cyan-light)/20 blur-xl opacity-70 group-hover:opacity-100 transition duration-500 pointer-events-none">
+                        </div>
+
+                        <!-- Gambar: h-full object-cover mengisi tinggi kartu tanpa gepeng -->
+                        <img src="../assets/meBG.jpg" alt="Bintang Andika"
+                            class="relative z-10 w-full h-100 object-cover rounded-3xl border-4 border-white shadow-xl transition-transform duration-500" />
+                    </div>
+                </div>
+
             </div>
 
             <!-- Experience Timeline Grid -->

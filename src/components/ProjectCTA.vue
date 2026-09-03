@@ -3,7 +3,7 @@ import AvailableBadge from './AvailableBadge.vue';
 </script>
 
 <template>
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 my-16">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 my-16">
     <div class="bg-(--color-bg-cta) border border-(--color-border-subtle) rounded-3xl p-8 sm:p-14 text-center card-shadow relative overflow-hidden">
       <!-- Background subtle gradient accent -->
       <div class="absolute -top-24 -right-24 w-72 h-72 bg-(--color-secondary)/10 rounded-full blur-3xl pointer-events-none"></div>

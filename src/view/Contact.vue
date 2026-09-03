@@ -93,7 +93,7 @@ const socialLinks = [
         </section>
 
         <!-- Main Contact Form & Info Grid -->
-        <section class="max-w-6xl mx-auto px-4 sm:px-6">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
                 <!-- Left: message form -->

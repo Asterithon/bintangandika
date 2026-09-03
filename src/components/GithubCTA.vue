@@ -1,5 +1,5 @@
 <template>
-    <section class="max-w-6xl mx-auto px-4 sm:px-6 my-16">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 my-16">
         <!-- Bento Card Container: 1 Col di Mobile, 2 Col di Desktop (lg:grid-cols-12) -->
         <div
             class="bg-[#0d1117] border border-slate-800 rounded-3xl p-8 sm:px-14 sm:py-6 relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-10 items-center shadow-2xl">
