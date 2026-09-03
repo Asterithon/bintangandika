@@ -76,7 +76,7 @@ const skillCategories = [
 
                 <!-- KOLOM KANAN: Beri h-full agar tingginya mengikuti kolom kiri -->
                 <div class="lg:col-span-4 h-full flex justify-center">
-                    <div class="relative group w-full max-w-xs sm:max-w-sm">
+                    <div class="relative group w-full max-w-full md:max-w-sm">
 
                         <!-- Glow Halus di Belakang Frame -->
                         <div
@@ -85,7 +85,7 @@ const skillCategories = [
 
                         <!-- Gambar: h-full object-cover mengisi tinggi kartu tanpa gepeng -->
                         <img src="../assets/meBG.jpg" alt="Bintang Andika"
-                            class="relative z-10 w-full h-100 object-cover rounded-3xl border-4 border-white shadow-xl transition-transform duration-500" />
+                            class="relative z-10 w-full h-100 w-full object-cover rounded-3xl border-4 border-white shadow-xl transition-transform duration-500" />
                     </div>
                 </div>
 
