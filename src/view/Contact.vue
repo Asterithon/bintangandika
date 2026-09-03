@@ -30,7 +30,7 @@ const startCooldown = (seconds = 60) => {
 }
 
 const handleSubmit = async () => {
-    // Guard / Debounce: Cegah klik ganda saat proses atau masa cooldown
+    // debounce
     if (isSubmitting.value || cooldownSeconds.value > 0) return
 
     isSubmitting.value = true
@@ -57,11 +57,11 @@ const handleSubmit = async () => {
             form.name = ''
             form.email = ''
             form.message = ''
-            startCooldown(60) // Cooldown 60 detik setelah sukses
+            startCooldown(60)
         } else {
             errorMessage.value = data.message || 'Failed to send message. Please try again later.'
             if (res.status === 429) {
-                startCooldown(30) // Cooldown jika terdeteksi rate limit server
+                startCooldown(30)
             }
         }
     } catch (err) {

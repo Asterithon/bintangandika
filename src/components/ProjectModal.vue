@@ -1,19 +1,4 @@
 <script setup>
-/**
- * ProjectModal — Fullscreen overlay modal for viewing project details.
- *
- * Features:
- *   - Image slider with prev/next arrows and dot indicators
- *   - Strict dismissal: only the "Back" button closes the modal
- *   - Body scroll lock while open
- *   - Smooth fade + scale entrance transition
- *
- * Props:
- *   project  — The project object to display (or null to hide)
- *
- * Emits:
- *   close    — Fired when the Back button is pressed
- */
 
 import { ref, watch, onUnmounted } from 'vue';
 

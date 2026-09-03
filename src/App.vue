@@ -7,11 +7,9 @@ const isTransitioning = ref(false)
 </script>
 
 <template>
-  <!-- min-h-screen flex flex-col menjaga footer tetap di dasar layar -->
   <div class="min-h-screen flex flex-col bg-(--color-bg-light)">
     <Navbar />
 
-    <!-- Konten Utama: beri min-h agar tinggi layar tidak drop saat transisi -->
     <main class="flex-1 w-full min-h-[calc(100vh-140px)]">
       <router-view v-slot="{ Component, route }">
         <transition 
@@ -25,7 +23,6 @@ const isTransitioning = ref(false)
       </router-view>
     </main>
 
-    <!-- Footer: sembunyikan/pudarkan saat proses transisi halaman berlangsung -->
     <Footer 
       class="transition-opacity duration-200"
       :class="isTransitioning ? 'opacity-0 pointer-events-none' : 'opacity-100'" 
