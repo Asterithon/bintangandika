@@ -33,7 +33,7 @@ import AvailableBadge from '../components/AvailableBadge.vue';
         </div>
         
         <!-- Right Column: Card Widgets Grid -->
-        <div class="lg:col-span-6 space-y-5 relative overflow-hidden">
+        <div class="lg:col-span-6 space-y-5 relative overflow-hidden md:py-10">
             
                 <!-- Top Row Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">

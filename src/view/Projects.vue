@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import ProjectCTA from '../components/ProjectCTA.vue';
+import GithubCTA from '../components/GithubCTA.vue';
 
 const selectedCategory = ref('All');
 const categories = ['All', 'Fullstack', 'Mobile App'];
@@ -8,12 +9,12 @@ const categories = ['All', 'Fullstack', 'Mobile App'];
 const projects = [
     {
         id: 1,
-        title: 'Seetra — Image Processing Web',
+        title: 'Seetra: Image Processing Web',
         category: 'Fullstack',
         description: 'Advanced image processing web application built with OpenCV, Python + Flask backend, and React + Tailwind CSS frontend for real-time image transformation, filtering, and computer vision analysis.',
         tech: ['React', 'Tailwind CSS', 'Python', 'Flask', 'OpenCV'],
         badge: 'Fullstack Web App',
-        demoUrl: '',
+        demoUrl: '#',
         githubUrl: 'https://github.com/asterithon/seetra'
     },
     {
@@ -23,7 +24,7 @@ const projects = [
         description: 'Cross-platform mobile application for venue and event seat reservation, built with React Native and Android Studio for smooth UI interactions, real-time seat selection, and user booking flows.',
         tech: ['React Native', 'Android Studio', 'JavaScript', 'Mobile UI'],
         badge: 'Mobile Application',
-        demoUrl: '',
+        demoUrl: '#',
         githubUrl: 'https://github.com/asterithon/seatbookingapp'
     },
     {
@@ -33,7 +34,7 @@ const projects = [
         description: 'Fullstack futsal court reservation web platform built with Laravel and Tailwind CSS, featuring secure user authentication, interactive field schedule management, and instant booking confirmations.',
         tech: ['Laravel', 'Tailwind CSS', 'MySQL', 'PHP', 'Authentication'],
         badge: 'Fullstack Web App',
-        demoUrl: '',
+        demoUrl: '#',
         githubUrl: 'https://github.com/asterithon/booking-futsal'
     }
 ];
@@ -130,6 +131,7 @@ const filteredProjects = computed(() => {
         </section>
 
         <!-- Bottom Reusable CTA Banner -->
+         <GithubCTA />
         <ProjectCTA />
     </div>
 </template>

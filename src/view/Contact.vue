@@ -71,17 +71,11 @@ const handleSubmit = async () => {
     }
 }
 
-// Oper HANYA nama filenya saja, misalnya 'github' atau 'whatsapp'
-const getIconUrl = (name) => {
-    if (!name) return ''
-    return new URL(`../assets/icons/${name}.svg`, import.meta.url).href
-}
-
 const socialLinks = [
-    { id: 'wa', name: 'Whatsapp', short: 'WA', url: 'https://wa.me/6282144581125', logo: 'whatsapp' },
-    { id: 'in', name: 'LinkedIn', short: 'IN', url: 'https://www.linkedin.com/in/bintangandikaputra', logo: 'suitcase' },
-    { id: 'gh', name: 'GitHub', short: 'GH', url: 'https://github.com/Asterithon', logo: 'github' },
-    { id: 'ig', name: 'Instagram', short: 'IG', url: 'https://instagram.com/asterihon.sta', logo: 'instagram' },
+    { id: 'wa', name: 'Whatsapp', color: '#25D366', url: 'https://wa.me/6282144581125', logo: 'fa-brands fa-whatsapp' },
+    { id: 'in', name: 'LinkedIn', color: '#0A66C2', url: 'https://www.linkedin.com/in/bintangandikaputra', logo: 'fa-brands fa-linkedin' },
+    { id: 'gh', name: 'GitHub', color: '#24292F', url: 'https://github.com/Asterithon', logo: 'fa-brands fa-github' },
+    { id: 'ig', name: 'Instagram', color: '#E4405F', url: 'https://instagram.com/asterihon.sta', logo: 'fa-brands fa-instagram' },
 ]
 </script>
 
@@ -224,18 +218,12 @@ const socialLinks = [
                                 :key="item.id"
                                 :href="item.url"
                                 :title="item.name"
-                                class="group w-12 lg:hover:w-25 h-12 rounded-full bg-[#F4F6F8] hover:bg-(--color-primary) text-(--color-text-muted) hover:text-white flex items-center justify-center font-mono-custom text-xs font-bold transition-all duration-300 shadow-xs whitespace-nowrap overflow-hidden px-3"
+                                :style="{ '--brand-color': item.color }"
+                                class="group w-12 gap-2 lg:hover:w-30 h-12 rounded-full bg-[#F4F6F8] hover:bg-(--brand-color) text-(--color-text-muted) hover:text-white flex items-center justify-center font-mono-custom text-xs font-bold transition-all duration-300 shadow-xs whitespace-nowrap overflow-hidden px-3"
                             >
-                                <!-- Tampilan Mobile & Tablet: Hanya Logo SVG -->
-                                <img 
-                                    :src="getIconUrl(item.logo)" 
-                                    :alt="item.name" 
-                                    class="block lg:hidden w-5 h-5 object-contain"
-                                />
-
-                                <!-- Tampilan Desktop: Teks Short & Animasi Melebar saat Hover -->
-                                <span class="hidden lg:inline group-hover:hidden">{{ item.short }}</span>
-                                <span class="hidden lg:group-hover:inline">{{ item.name }}</span>
+                                <i :class="item.logo" class="fa-xl"></i>
+                                
+                                <span class="hidden lg:group-hover:inline transition-all transition-discrete">{{ item.name }}</span>
                             </a>
                         </div>                    
                     </div>
